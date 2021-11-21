@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="menu_patient_form_website" model="website.menu">
+        <field name="name">Create patient</field>
+        <field name="url">patient_webform</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">55</field>
+    </record>
+
+    <template id="create_patient" name="Create patient">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <div class="container">
+                        <form role="form" action="/create/webpatient" method="POST">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"></input>
+                            <div class="form-group">
+                                <label for="name" class="control-label">Name</label>
+                                <input type="text" name="name" t-att-value="name" id="name" class="form-control" placeholder="EJ:Luis Felipe Paternina" required="required" style="text-transform: uppercase;"></input>
+                            </div>
+                            <div class="form-group">
+                                <label for="identification_type" class="control-label">Identification type</label>
+                                <select class="form-control" name="identification_type" required="">
+                                    <option value=""></option>
+                                    <option value="cc">Cédula</option>
+                                    <option value="nuip">N.U.I.P</option>
+                                    <option value="ti">Tarjeta identidad</option>
+                                    <option value="ps">Pasaporte</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="control-label">Code</label>
+                                <input type="text" name="code" t-att-value="code" id="code" class="form-control" placeholder="EJ:33128780"></input>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" class="control-label">Phone</label>
+                                <input type="text" name="phone" t-att-value="phone" id="phone" class="form-control" placeholder="EJ:+573215062357"></input>
+                            </div>
+                            <div class="form-group">
+                                <label for="country_id" class="control-label">Country</label>
+                                <select class="form-control link-style" name="country_id">
+                                    <t t-foreach="countries_rec" t-as="country">
+                                        <option t-esc="country.name" t-att-value="country.id"/>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="town_id" class="control-label">Town</label>
+                                <select class="form-control link-style" name="town_id">
+                                    <t t-foreach="town_rec" t-as="town">
+                                        <option t-esc="town.name" t-att-value="town.id"/>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="form-group row form-field o_website_form_required_custom">
+                                <div class="col-lg-3 col-md-4 text-right">
+                                    <label class="col-form-label" for="identification_image">
+                                        Photocopy of the ID
+                                    </label>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="file" class="form-control o_website_form_input"
+                                        name="identification_image"/>
+                                </div>
+                            </div>
+                            <div class="clearfix oe_login_buttons">
+                                <button type="submit" class="btn btn-primary pull-left">SUBMIT</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <record id="patient_thanks" model="website.page">
+        <field name="name">Thanks</field>
+        <field name="type">qweb</field>
+        <field name="url">patient_thanks</field>
+        <field name="website_published">True</field>
+        <field name="key">introdoo.patient_thanks</field>
+        <field name="arch" type="xml">
+            <t name="thanks" t-name="introdoo.patient_thanks">
+                <t t-call="website.layout">
+                    <div id="wrap">
+                        <div class="container">
+                            <h1>Thanks!</h1>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="alert alert-success" role="status">
+                                        Successfully created record
+                                    </div>
+                                    <p>
+                                        Thank you for using our web portal!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </field>
+    </record>
+
+</odoo>     

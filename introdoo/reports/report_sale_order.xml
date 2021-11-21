@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <data>
+        <report
+                id="report_sale_order_lfpv"
+                string="Sale order LFPV - Introdoo"
+                model="sale.order"
+                report_type="qweb-pdf"
+                name="reports_lfpv.report_template_sale_order_lfpv"
+        />
+
+        
+        <template id="report_template_sale_order_lfpv">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">                    
+                    <div class="header">
+                       Encabezado
+                    </div>
+                    <div class="article o_report_layout_standard">
+                       <div class="page">
+                            cuerpo
+                       </div>
+                    </div>
+                    <div class="footer">
+                        pie de pagina
+                    </div>
+                </t>
+            </t>
+        </template>
+  </data>
+</odoo>
